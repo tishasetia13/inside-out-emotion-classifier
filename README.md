@@ -21,9 +21,9 @@ For this project, the dataset is filtered down to the 5 emotions Inside Out actu
 - [x] Dataset sourced and cleaned (ISEAR, filtered to 5 emotions, ~5,400 balanced examples)
 - [x] Text artifacts cleaned, train/val/test split done (stratified)
 - [x] Tokenization
-- [ ] Model architecture + training loop (PyTorch)
-- [ ] Evaluation
-- [ ] Inference demo
+- [x] Model architecture + training loop (PyTorch)
+- [x] Evaluation
+- [x] Inference demo
 
 ## Tech stack
 
