@@ -1,0 +1,20 @@
+# Tell pip to also look at PyTorch's own CPU-only download page (smaller than the default build, which carries GPU code our server won't use)
+--extra-index-url https://download.pytorch.org/whl/cpu
+
+# The web framework that defines our endpoints
+fastapi==0.143.0
+
+# The server program that runs the FastAPI app and listens for requests
+uvicorn==0.54.0
+
+# The library FastAPI uses to check that incoming request bodies match StoryRequest
+pydantic==2.14.0
+
+# The deep learning library that runs the model's math
+torch==2.14.1
+
+# The Hugging Face library that loads DistilBERT and its tokenizer from the Hub
+transformers==5.19.0
+
+# The safe file format the model's weights are stored in; transformers uses it to read them
+safetensors==0.8.0
