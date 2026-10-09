@@ -3,10 +3,10 @@
 
 ```mermaid
 flowchart LR
-    User["👤 User<br/>writes a story"] --> Frontend["🌐 Frontend<br/>HTML / CSS / JS<br/>(planned)"]
+    User["User<br/>writes a story"] --> Frontend["Frontend<br/>HTML / CSS / JS<br/>(planned)"]
     Frontend -- "POST /predict<br/>{ text: story }" --> Uvicorn
 
-    subgraph Docker["🐳 Docker container (Hugging Face Space)"]
+    subgraph Docker["Docker container (Hugging Face Space)"]
         Uvicorn["Uvicorn<br/>web server"] --> FastAPI["main.py<br/>FastAPI + request validation"]
         FastAPI --> Predict["predict.py<br/>predict_story"]
         Predict --> Chunk["split_into_chunks<br/>pieces of up to 64 tokens"]
@@ -14,8 +14,8 @@ flowchart LR
         Model --> Avg["Average the probabilities"]
     end
 
-    Hub[("🤗 Hugging Face Hub<br/>fine-tuned model weights")] -. "loaded once at startup" .-> Model
-    Avg -- "JSON: 5 emotion %" --> Characters["🎭 Inside Out characters<br/>sized by percentage<br/>(planned)"]
+    Hub[("Hugging Face Hub<br/>fine-tuned model weights")] -. "loaded once at startup" .-> Model
+    Avg -- "JSON: 5 emotion %" --> Characters["Inside Out characters<br/>sized by percentage<br/>(planned)"]
 
     classDef planned stroke-dasharray: 5 5;
     class Frontend,Characters planned;
