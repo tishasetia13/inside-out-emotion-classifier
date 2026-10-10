@@ -1,0 +1,100 @@
+/* Base styles: a small reset, page background, and typography shared by everything. */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-ui);
+  font-size: var(--text-base);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-underline-offset: 0.2em;
+  text-decoration-color: var(--color-text-2);
+}
+
+a:hover {
+  text-decoration-color: currentColor;
+}
+
+button,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+/* One consistent, visible keyboard focus ring for every interactive element */
+:focus-visible {
+  outline: 2px solid var(--color-text);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* Each emotion element sets --emotion-color from its data-emotion attribute */
+[data-emotion='anger'] {
+  --emotion-color: var(--color-anger);
+}
+[data-emotion='disgust'] {
+  --emotion-color: var(--color-disgust);
+}
+[data-emotion='fear'] {
+  --emotion-color: var(--color-fear);
+}
+[data-emotion='joy'] {
+  --emotion-color: var(--color-joy);
+}
+[data-emotion='sadness'] {
+  --emotion-color: var(--color-sadness);
+}
+
+/* Text for screen readers only (visually hidden but still read aloud) */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.page {
+  width: min(100% - 2 * var(--space-6), var(--layout-width));
+  margin-inline: auto;
+  padding-block: var(--space-6) var(--space-8);
+}
+
+/* Respect the "reduce motion" operating system setting: animations and transitions are
+   effectively switched off, while the final states (sizes, positions) still apply. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

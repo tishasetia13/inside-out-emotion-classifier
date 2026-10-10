@@ -1,0 +1,11 @@
+.counter {
+  font-size: var(--text-sm);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-text-2);
+}
+
+.counter--warning,
+.counter--over {
+  color: var(--color-text);
+  font-weight: 600;
+}

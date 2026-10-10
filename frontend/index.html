@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inside Out Emotion Classifier</title>
+    <meta
+      name="description"
+      content="Paste a short personal story and see which of five emotions (anger, disgust, fear, joy, sadness) it carries, from a fine-tuned DistilBERT model."
+    />
+    <meta name="theme-color" content="#f7f4ee" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#141311" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Start downloading the two main fonts immediately, so text does not reflow when they arrive -->
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      crossorigin
+      href="/node_modules/@fontsource-variable/inter/files/inter-latin-wght-normal.woff2"
+    />
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      crossorigin
+      href="/node_modules/@fontsource-variable/fraunces/files/fraunces-latin-wght-normal.woff2"
+    />
+
+    <!-- Open Graph / Twitter tags: how the link looks when shared -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Inside Out Emotion Classifier" />
+    <meta
+      property="og:description"
+      content="Write a short personal story and see which of five emotions it carries, each sized by how strongly it fits."
+    />
+    <meta property="og:image" content="__SITE_URL__/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Five emotion characters of different sizes standing on a line, beside the headline: What is this story feeling?"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <noscript>This app needs JavaScript to run.</noscript>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

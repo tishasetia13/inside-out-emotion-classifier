@@ -1,0 +1,20 @@
+.intro {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.intro__title {
+  font-family: var(--font-display);
+  font-size: var(--text-display);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.intro__lead {
+  max-width: 32rem;
+  color: var(--color-text-2);
+  font-size: var(--text-lg);
+  text-wrap: pretty;
+}

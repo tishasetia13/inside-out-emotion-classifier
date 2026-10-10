@@ -1,0 +1,5 @@
+.footer {
+  margin-top: var(--space-8);
+  font-size: var(--text-sm);
+  color: var(--color-text-2);
+}

@@ -1,0 +1,109 @@
+.story {
+  display: grid;
+  gap: var(--space-4);
+  margin-top: var(--space-6);
+}
+
+.story__label {
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+/* No visible border: a quiet filled surface that gains an outline on focus */
+.story__textarea {
+  width: 100%;
+  min-height: 11rem;
+  resize: vertical;
+  padding: var(--space-4) var(--space-6);
+  border: 0;
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  font-size: var(--text-lg);
+  line-height: 1.6;
+}
+
+.story__textarea::placeholder {
+  color: var(--color-text-2);
+}
+
+.story__textarea:focus-visible {
+  outline: 2px solid var(--color-text);
+  outline-offset: 2px;
+}
+
+.story__textarea[aria-invalid='true'] {
+  outline: 2px solid var(--color-text);
+}
+
+.story__row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-1) var(--space-4);
+}
+
+.story__privacy {
+  font-size: var(--text-sm);
+  color: var(--color-text-2);
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  justify-self: start;
+  gap: var(--space-2);
+  min-height: 3rem;
+  padding: 0 var(--space-8);
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  font-size: var(--text-base);
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    opacity var(--duration-fast),
+    transform var(--duration-fast) var(--ease-out);
+}
+
+.button:hover:not(:disabled) {
+  opacity: 0.88;
+}
+
+.button:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.button:disabled {
+  cursor: not-allowed;
+  opacity: 0.35;
+}
+
+/* While loading the button is disabled but should read as "busy", not "unavailable" */
+.button[aria-busy='true']:disabled {
+  opacity: 0.8;
+  cursor: progress;
+}
+
+.spinner {
+  width: 1em;
+  height: 1em;
+  border: 2px solid color-mix(in srgb, var(--color-on-primary) 30%, transparent);
+  border-top-color: var(--color-on-primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 30rem) {
+  .button {
+    width: 100%;
+    justify-self: stretch;
+  }
+}

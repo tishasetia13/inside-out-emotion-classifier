@@ -1,0 +1,262 @@
+/* Character illustrations and their idle animations.
+   A CSS animation is described by @keyframes (what changes over time) plus an
+   `animation` rule on an element (which keyframes, how long, how often).
+   The stage sets --energy (0 to 1) from each percentage, and the animations below read
+   it, so a stronger emotion moves more. Nothing here uses glow or shadow effects. */
+
+.char {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  /* One ink color for every facial feature (SVG reads it through currentColor) */
+  color: #231f1a;
+}
+
+/* Body color: each character picks its own --char-color from the design tokens */
+.char__fill {
+  fill: var(--char-color);
+  stroke: var(--char-color);
+}
+
+/* The shared stroke style for brows, mouths and lids: same weight on every character */
+.char__line {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* A lid is filled with the body color but must not draw an outline of its own */
+.sadness__body .char__fill,
+.disgust__body path.char__fill {
+  stroke: none;
+}
+
+.char--joy {
+  --char-color: var(--color-joy);
+}
+.char--sadness {
+  --char-color: var(--color-sadness);
+}
+.char--anger {
+  --char-color: var(--color-anger);
+}
+.char--fear {
+  --char-color: var(--color-fear);
+}
+.char--disgust {
+  --char-color: var(--color-disgust);
+}
+
+/* In SVG, transforms default to the whole drawing's corner. These rules make every
+   animated part transform around its own center instead. :where() gives the rule zero
+   specificity, so the more specific per-character rules below can override it. */
+:where(.char g, .char path, .char circle) {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+/* ---------- Joy: a buoyant bounce ---------- */
+
+.joy__body {
+  transform-origin: center bottom;
+  animation: joy-bounce calc(1.6s - var(--energy) * 0.8s) ease-in-out infinite;
+}
+
+@keyframes joy-bounce {
+  0%,
+  100% {
+    transform: translateY(0) scale(1.03, 0.96);
+  }
+  50% {
+    transform: translateY(calc(-2px - var(--energy) * 6px)) scale(0.97, 1.04);
+  }
+}
+
+/* ---------- Sadness: a slow, heavy sag and a falling tear ---------- */
+
+.sadness__body {
+  transform-origin: center bottom;
+  animation: sadness-sag 5.5s ease-in-out infinite;
+}
+
+.sadness__tear {
+  fill: #cfe3ff;
+  opacity: 0;
+  animation: sadness-tear 4s ease-in infinite;
+}
+
+@keyframes sadness-sag {
+  0%,
+  100% {
+    transform: scale(1, 1);
+  }
+  50% {
+    transform: scale(1.03, calc(0.97 - var(--energy) * 0.03)) translateY(2px);
+  }
+}
+
+@keyframes sadness-tear {
+  0%,
+  20% {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.6);
+  }
+  35% {
+    opacity: 0.95;
+    transform: translateY(0) scale(1);
+  }
+  85% {
+    opacity: 0.8;
+    transform: translateY(14px) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(18px) scale(0.9);
+  }
+}
+
+/* ---------- Anger: a tense pulse and a flickering flame ---------- */
+
+.anger__body {
+  transform-origin: center bottom;
+  animation: anger-pulse calc(1.3s - var(--energy) * 0.7s) ease-in-out infinite;
+}
+
+.anger__flame {
+  transform-origin: center bottom;
+  animation: anger-flicker calc(0.8s - var(--energy) * 0.4s) ease-in-out infinite
+    alternate;
+}
+
+@keyframes anger-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(
+      calc(1.01 + var(--energy) * 0.04),
+      calc(0.99 - var(--energy) * 0.02)
+    );
+  }
+}
+
+@keyframes anger-flicker {
+  from {
+    transform: scale(0.94, 0.9) rotate(-3deg);
+  }
+  to {
+    transform: scale(1.04, calc(1 + var(--energy) * 0.16)) rotate(3deg);
+  }
+}
+
+/* ---------- Fear: a constant tremble, darting pupils and a sweat drop ---------- */
+
+.fear__body {
+  transform-origin: center bottom;
+  animation: fear-tremble 0.22s steps(2, end) infinite;
+}
+
+.fear__pupil {
+  animation: fear-dart 2.6s ease-in-out infinite;
+}
+
+.fear__sweat {
+  fill: #cfe3ff;
+  animation: fear-sweat 2.4s ease-in infinite;
+}
+
+@keyframes fear-tremble {
+  0% {
+    transform: translate(calc(-0.4px - var(--energy) * 1.4px), 0) rotate(-0.5deg);
+  }
+  100% {
+    transform: translate(calc(0.4px + var(--energy) * 1.4px), 0) rotate(0.5deg);
+  }
+}
+
+@keyframes fear-dart {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-3px);
+  }
+  60% {
+    transform: translateX(3px) translateY(-1px);
+  }
+}
+
+@keyframes fear-sweat {
+  0%,
+  15% {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  35% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+
+/* ---------- Disgust: a sassy sway, side-eye and an occasional eye-roll ---------- */
+
+.disgust__body {
+  transform-origin: center bottom;
+  animation: disgust-sway 4.5s ease-in-out infinite;
+}
+
+.disgust__pupil {
+  animation: disgust-roll 7s ease-in-out infinite;
+}
+
+.disgust__tongue {
+  fill: #ff8aa8;
+  transform-origin: top center;
+  animation: disgust-tongue 1.6s ease-in-out infinite alternate;
+}
+
+@keyframes disgust-sway {
+  0%,
+  100% {
+    transform: rotate(calc(-3deg - var(--energy) * 3deg)) translateX(-2px);
+  }
+  50% {
+    transform: rotate(calc(-1deg - var(--energy) * 2deg))
+      translateX(calc(var(--energy) * -3px)) skewX(-3deg);
+  }
+}
+
+@keyframes disgust-roll {
+  0%,
+  60%,
+  100% {
+    transform: translate(0, 0);
+  }
+  70% {
+    transform: translate(-6px, -3px);
+  }
+  80% {
+    transform: translate(-2px, -5px);
+  }
+  90% {
+    transform: translate(3px, 0);
+  }
+}
+
+@keyframes disgust-tongue {
+  from {
+    transform: scaleY(1) rotate(-4deg);
+  }
+  to {
+    transform: scaleY(1.12) rotate(5deg);
+  }
+}

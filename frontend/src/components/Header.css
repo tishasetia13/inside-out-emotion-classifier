@@ -1,0 +1,8 @@
+.header {
+  padding-block: var(--space-2) var(--space-6);
+}
+
+.header__brand {
+  font-size: var(--text-sm);
+  font-weight: 600;
+}

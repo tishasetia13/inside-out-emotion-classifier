@@ -1,0 +1,21 @@
+/* Page layout. On phones everything is one column: input first, then the stage.
+   From 900px up there are two columns, and the stage stays in view while the visitor
+   types ("sticky"), so results appear next to the text instead of below it. */
+
+.layout {
+  display: grid;
+  gap: var(--space-12);
+}
+
+@media (min-width: 56.25rem) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--space-16);
+    align-items: start;
+  }
+
+  .layout__stage {
+    position: sticky;
+    top: var(--space-6);
+  }
+}

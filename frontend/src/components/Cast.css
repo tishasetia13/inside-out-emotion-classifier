@@ -1,0 +1,53 @@
+/* The stage floor: a hairline ground line. The box has a fixed 5:3 shape, tall enough for
+   the biggest possible character (about 54% of the width), so nothing below it jumps when results change.
+   clip-path hides anything that sinks below the ground line (used for shy characters). */
+.cast {
+  position: relative;
+  aspect-ratio: 11 / 6;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-bottom: 1px solid var(--color-text-2);
+  clip-path: inset(-50% -5% 0 -5%);
+}
+
+/* Each character is a square whose size and position come from the layout function.
+   Each drawing has about 5% empty margin below its feet, so translateY(5%) (a percentage
+   of the character's own height) lowers it until the feet touch the ground line. */
+.cast__item {
+  position: absolute;
+  bottom: 0;
+  transform: translateY(5%);
+  left: calc(var(--left) * 100%);
+  width: calc(var(--width) * 100%);
+  aspect-ratio: 1;
+  transition:
+    left var(--duration-slow) var(--ease-settle),
+    width var(--duration-slow) var(--ease-settle);
+}
+
+.cast__bob {
+  width: 100%;
+  height: 100%;
+  transition: transform var(--duration-slow) var(--ease-settle);
+}
+
+/* A very small fear hides below the ground line, with only its head peeking out */
+.cast__item[data-emotion='fear'][data-low='true'] .cast__bob {
+  transform: translateY(42%);
+}
+
+/* While waiting for the server, all five make the same slow, synchronized motion */
+.stage[data-state='loading'] .cast__bob {
+  animation: think 1.6s ease-in-out infinite;
+}
+
+@keyframes think {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4%);
+  }
+}
