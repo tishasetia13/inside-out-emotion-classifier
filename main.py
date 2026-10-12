@@ -10,9 +10,12 @@ from predict import predict_story
 # Create the app object: our "restaurant", where endpoints get attached
 app = FastAPI()
 
-# Allowed origins: "*" means any website may call this API.
-# Temporary on purpose; step 3 replaces it with only our deployed frontend's address.
-ALLOWED_ORIGINS = ["*"]
+# Only these sites may call this API from a browser: our live site on Vercel,
+# and the local dev server so we can still test on our own laptop.
+ALLOWED_ORIGINS = [
+    "https://inside-out-emotion-classifier.vercel.app",
+    "http://localhost:5173",
+]
 
 # Register the CORS middleware on the app so it runs on every request.
 app.add_middleware(
