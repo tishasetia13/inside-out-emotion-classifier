@@ -1,6 +1,8 @@
 # Import FastAPI to build the API, and BaseModel/Field from Pydantic to describe request shapes
 from fastapi import FastAPI
 from pydantic import BaseModel, Field
+# Middleware that adds the CORS headers to every response (and answers preflight requests)
+from fastapi.middleware.cors import CORSMiddleware
 
 # Import our story-level predictor; importing this file also loads the model once at startup
 from predict import predict_story
@@ -8,6 +10,20 @@ from predict import predict_story
 # Create the app object: our "restaurant", where endpoints get attached
 app = FastAPI()
 
+# Allowed origins: "*" means any website may call this API.
+# Temporary on purpose; step 3 replaces it with only our deployed frontend's address.
+ALLOWED_ORIGINS = ["*"]
+
+# Register the CORS middleware on the app so it runs on every request.
+app.add_middleware(
+    CORSMiddleware,
+    # Which sites the browser is told it may read responses for
+    allow_origins=ALLOWED_ORIGINS,
+    # Which HTTP methods are allowed; we only need POST for /predict and GET for the health check
+    allow_methods=["GET", "POST"],
+    # Which request headers are allowed; Content-Type is what lets us send JSON
+    allow_headers=["Content-Type"],
+)
 
 # Describe what a valid request body looks like: one text field, between 1 and 5000 characters
 class StoryRequest(BaseModel):
